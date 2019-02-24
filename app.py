@@ -10,14 +10,31 @@ def index():
     return 'This is the home of the messaging app'
 
 
-@app.route('/login')
+@app.route('/login',methods=['GET'])
 def login():
-    return 'You cannot log in at the moment lol'
+    if request.method == 'GET':
+        return 'You cannot log in at the moment lol'
+    else:
+        return jsonify(Error="Method not allowed."), 405
 
 
-@app.route('/kheApp/dashboard')
+
+@app.route('/KheApp/register',methods=['POST','GET'])
+def register():
+    if request.method == 'POST':
+        return 'User Registered'
+    if request.method =='GET':
+        return 'User Registered'
+    else:
+        return jsonify(Error="Method not allowed."), 405
+
+
+@app.route('/kheApp/dashboard',methods=['GET'])
 def dashboard():
-    return 'statistics'
+    if request.method == 'POST':
+        return 'statistics'
+    else:
+        return jsonify(Error="Method not allowed."), 405
 
 
 @app.route('/kheApp/contacts', methods=['GET', 'POST'])
@@ -108,6 +125,10 @@ def getChatsByID(chid):
         return 'Deleted Chat!'  # ChatHandler().deleteChat(chid)
     else:
         return jsonify(Error="Method not allowed."), 405
+
+
+
+
 
 
 if __name__ == '__main__':
